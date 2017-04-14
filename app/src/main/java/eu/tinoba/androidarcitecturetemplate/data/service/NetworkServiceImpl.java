@@ -1,13 +1,17 @@
 package eu.tinoba.androidarcitecturetemplate.data.service;
 
+import java.util.List;
+
 import eu.tinoba.androidarcitecturetemplate.data.api.models.request.LoginApiRequest;
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.AccessTokenResponse;
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.LoginApiResponse;
+import eu.tinoba.androidarcitecturetemplate.data.api.models.response.ProductApiResponse;
 import io.reactivex.Single;
 
 import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.CLIENT_ID;
 import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.CLIENT_SECRET;
 import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.GRANT_TYPE;
+import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.PRODUCT_QUERY;
 import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.SCOPE;
 
 public final class NetworkServiceImpl implements NetworkService {
@@ -26,5 +30,10 @@ public final class NetworkServiceImpl implements NetworkService {
     @Override
     public Single<AccessTokenResponse> getToken() {
         return Single.defer(() -> templateAPI.getToken(GRANT_TYPE, CLIENT_ID, CLIENT_SECRET, SCOPE));
+    }
+
+    @Override
+    public Single<List<ProductApiResponse>> getProduct(final String id) {
+        return Single.defer(() -> templateAPI.getProduct(PRODUCT_QUERY + id));
     }
 }

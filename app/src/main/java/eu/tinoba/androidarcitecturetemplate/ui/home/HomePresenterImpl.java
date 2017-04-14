@@ -1,10 +1,15 @@
 package eu.tinoba.androidarcitecturetemplate.ui.home;
 
+import java.util.List;
+
+import eu.tinoba.androidarcitecturetemplate.data.api.models.response.ProductApiResponse;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkService;
 import eu.tinoba.androidarcitecturetemplate.manager.StringManager;
+import eu.tinoba.androidarcitecturetemplate.ui.base.presenters.BasePresenter;
 import io.reactivex.Scheduler;
+import timber.log.Timber;
 
-public final class HomePresenterImpl implements HomePresenter {
+public final class HomePresenterImpl extends BasePresenter implements HomePresenter {
 
     private final Scheduler subscribeScheduler;
     private final Scheduler observeScheduler;
@@ -24,5 +29,23 @@ public final class HomePresenterImpl implements HomePresenter {
     @Override
     public void setView(final HomeView view) {
         this.view = view;
+    }
+
+    @Override
+    public void addProductToCart(final String id) {
+        if (view != null) {
+            addDisposable(networkService.getProduct(id)
+                                        .observeOn(observeScheduler)
+                                        .subscribeOn(subscribeScheduler)
+                                        .subscribe(this::onGetProductSuccess, this::onGetProductFailure));
+        }
+    }
+
+    private void onGetProductSuccess(final List<ProductApiResponse> productApiResponses) {
+        Timber.e(productApiResponses.get(0).name.en);
+    }
+
+    private void onGetProductFailure(final Throwable throwable) {
+        Timber.e(throwable);
     }
 }
