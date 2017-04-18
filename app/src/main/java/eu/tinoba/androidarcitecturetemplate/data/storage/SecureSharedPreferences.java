@@ -21,7 +21,7 @@ public final class SecureSharedPreferences implements SharedPreferences {
 
     private static final String UTF8 = "utf-8";
 
-    private static final String ENCRYPTION_DECRYPTION_METHOD = "PBEWithMD5AndDES";
+    private static final String ENCRYPTION_DECRYPTION_METHOD = "PBEWITHSHA256AND128BITAES-CBC-BC";
 
     private static final int ITERATION_COUNT = 20;
 
