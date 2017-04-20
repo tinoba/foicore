@@ -3,15 +3,21 @@ package eu.tinoba.androidarcitecturetemplate.ui.home;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.Method;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -29,9 +35,17 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
     @Inject
     HomePresenter presenter;
 
+    private static final int PERMISSION_CODE = 1;
+
+    private BluetoothSocket bluetoothSocket;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+    private Thread workerThread;
+    byte[] readBuffer;
+    int readBufferPosition;
+    volatile boolean stopWorker;
     private BluetoothAdapter bluetoothAdapter;
     private IntentFilter filter;
-    private static final int PERMISSION_CODE = 1;
 
     public static Intent createIntent(final Context context) {
         return new Intent(context, HomeActivity.class);
@@ -50,7 +64,11 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
 
-        registerReceiver(mReceiver, filter);
+        final IntentFilter filter2 = new IntentFilter();
+        filter2.addAction(BluetoothDevice.ACTION_PAIRING_REQUEST);
+
+        registerReceiver(broadcastReceiver, filter);
+        registerReceiver(pairingRecivier, filter2);
     }
 
     @Override
@@ -102,9 +120,31 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
 
     }
 
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver pairingRecivier = new BroadcastReceiver() {
 
-        public void onReceive(Context context, Intent intent) {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            final String action = intent.getAction();
+            if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST)){
+                int pin = intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234);
+                //the pin in case you need to accept for an specific pin
+                Timber.e("Start Auto Pairing. PIN = " + intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234));
+                byte[] pinBytes;
+                try {
+                    final BluetoothDevice device = intent.getParcelableExtra("android.bluetooth.device.extra.DEVICE");
+                    pinBytes = ("" + pin).getBytes("UTF-8");
+                    device.setPin(pinBytes);
+                    openBlueToothConnection(device);
+                } catch (final UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
+        public void onReceive(final Context context, final Intent intent) {
             String action = intent.getAction();
 
             if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
@@ -113,10 +153,24 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
                 //discovery finishes, dismis progress dialog
             } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 //bluetooth device found
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
                 if (device.getName().equals("HC-05")) {
-                    pairDevice(device);
+                    int pin = intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234);
+                    //the pin in case you need to accept for an specific pin
+                    Timber.e("Start Auto Pairing. PIN = " + intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234));
+                    byte[] pinBytes;
+                    try {
+                        pinBytes = ("" + pin).getBytes("UTF-8");
+                        //device.setPin(pinBytes);
+                        device.createBond();
+                    } catch (final UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    //setPairing confirmation if neeeded
+                    //device.setPairingConfirmation(true);
+
                 }
                 Timber.e("Found device " + device.getName());
                 Timber.e(device.getAddress());
@@ -125,19 +179,77 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
         }
     };
 
-    private void pairDevice(BluetoothDevice device) {
+    void openBlueToothConnection(final BluetoothDevice device) {
+        final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standard SerialPortService ID
         try {
-            Method method = device.getClass().getMethod("createBond", (Class[]) null);
-            method.invoke(device, (Object[]) null);
-        } catch (Exception e) {
-            e.printStackTrace();
+            bluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(uuid);
+            bluetoothSocket.connect();
+            outputStream = bluetoothSocket.getOutputStream();
+            inputStream = bluetoothSocket.getInputStream();
+        } catch (IOException e) {
+            Timber.e(e);
         }
+
+        beginListenForData();
+
+        Timber.e("Bluetooth Opened");
+    }
+
+    private void beginListenForData() {
+        final Handler handler = new Handler();
+        final byte delimiter = 10; //This is the ASCII code for a newline character
+
+        stopWorker = false;
+        readBufferPosition = 0;
+        readBuffer = new byte[1024];
+        workerThread = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted() && !stopWorker) {
+                try {
+                    int bytesAvailable = inputStream.available();
+                    if (bytesAvailable > 0) {
+                        byte[] packetBytes = new byte[bytesAvailable];
+                        inputStream.read(packetBytes);
+                        for (int i = 0; i < bytesAvailable; i++) {
+                            byte b = packetBytes[i];
+                            if (b == delimiter) {
+                                byte[] encodedBytes = new byte[readBufferPosition];
+                                System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
+                                final String data = new String(encodedBytes, "US-ASCII");
+                                readBufferPosition = 0;
+
+                                handler.post(() -> Timber.e(data));
+                            } else {
+                                readBuffer[readBufferPosition++] = b;
+                            }
+                        }
+                    }
+                } catch (IOException ex) {
+                    stopWorker = true;
+                }
+            }
+        });
+
+        workerThread.start();
+    }
+
+    private void closeBlueToothConnection() {
+        stopWorker = true;
+        try {
+            outputStream.close();
+            inputStream.close();
+            bluetoothSocket.close();
+        } catch (IOException e) {
+            Timber.e(e);
+        }
+
+        Timber.e("Bluetooth Closed");
     }
 
     @Override
     protected void onDestroy() {
-
-        unregisterReceiver(mReceiver);
+        closeBlueToothConnection();
+        unregisterReceiver(broadcastReceiver);
         super.onDestroy();
     }
 }
+
