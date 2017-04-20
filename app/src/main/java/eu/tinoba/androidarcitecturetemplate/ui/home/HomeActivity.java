@@ -43,6 +43,7 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
     private Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
+    private String realValue = "";
     volatile boolean stopWorker;
     private BluetoothAdapter bluetoothAdapter;
     private IntentFilter filter;
@@ -97,6 +98,8 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
     private void requestPermission() {
         final String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};
         if (EasyPermissions.hasPermissions(this, perms)) {
+            closeBlueToothConnection();
+            bluetoothAdapter.cancelDiscovery();
             bluetoothAdapter.startDiscovery();
         } else {
             EasyPermissions.requestPermissions(this, "Please grant permissions",
@@ -156,8 +159,6 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
                 final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
                 if (device.getName().equals("HC-05")) {
-                    int pin = intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234);
-                    //the pin in case you need to accept for an specific pin
                     Timber.e("Start Auto Pairing. PIN = " + intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234));
 
                     if (device.getUuids() != null) {
@@ -214,8 +215,19 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
                                 System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
                                 final String data = new String(encodedBytes, "US-ASCII");
                                 readBufferPosition = 0;
+                                int sizeOfData = data.length();
+                                realValue = "";
+                                for (int j = 0; j < sizeOfData; j++) {
+                                    if ((data.charAt(j) >= 'A' && data.charAt(j) <= 'Z') || data.charAt(j) <= '9' && data.charAt(j) >= '0') {
+                                        realValue += data.charAt(j);
+                                    } else {
+                                        if (data.charAt(j) != '\r') {
+                                            realValue = "";
+                                        }
+                                    }
+                                }
 
-                                handler.post(() -> Timber.e(data));
+                                handler.post(() -> Timber.e("Data recieved: " + data + " Real value: " + realValue));
                             } else {
                                 readBuffer[readBufferPosition++] = b;
                             }
@@ -233,9 +245,11 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
     private void closeBlueToothConnection() {
         stopWorker = true;
         try {
-            outputStream.close();
-            inputStream.close();
-            bluetoothSocket.close();
+            if (bluetoothSocket != null) {
+                outputStream.close();
+                inputStream.close();
+                bluetoothSocket.close();
+            }
         } catch (IOException e) {
             Timber.e(e);
         }
