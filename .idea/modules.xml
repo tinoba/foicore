@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidArcitectureTemplate.iml" filepath="$PROJECT_DIR$/AndroidArcitectureTemplate.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/foicore.iml" filepath="$PROJECT_DIR$/foicore.iml" />
     </modules>
   </component>
 </project>

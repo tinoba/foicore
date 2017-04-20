@@ -11,6 +11,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +29,7 @@ import butterknife.OnClick;
 import eu.tinoba.androidarcitecturetemplate.R;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.qr.QRActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import timber.log.Timber;
@@ -78,6 +82,26 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
 
         presenter.setView(this);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.qrScanner:
+                startActivity(new Intent(HomeActivity.this, QRActivity.class));
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
 
     @Override
     protected void inject(final ActivityComponent activityComponent) {
