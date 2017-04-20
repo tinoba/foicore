@@ -125,7 +125,7 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final String action = intent.getAction();
-            if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST)){
+            if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST)) {
                 int pin = intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234);
                 //the pin in case you need to accept for an specific pin
                 Timber.e("Start Auto Pairing. PIN = " + intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234));
@@ -159,13 +159,11 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
                     int pin = intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234);
                     //the pin in case you need to accept for an specific pin
                     Timber.e("Start Auto Pairing. PIN = " + intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 1234));
-                    byte[] pinBytes;
-                    try {
-                        pinBytes = ("" + pin).getBytes("UTF-8");
-                        //device.setPin(pinBytes);
+
+                    if (device.getUuids() != null) {
+                        openBlueToothConnection(device);
+                    } else {
                         device.createBond();
-                    } catch (final UnsupportedEncodingException e) {
-                        e.printStackTrace();
                     }
 
                     //setPairing confirmation if neeeded
@@ -249,6 +247,7 @@ public class HomeActivity extends BaseActivity implements HomeView, EasyPermissi
     protected void onDestroy() {
         closeBlueToothConnection();
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(pairingRecivier);
         super.onDestroy();
     }
 }
