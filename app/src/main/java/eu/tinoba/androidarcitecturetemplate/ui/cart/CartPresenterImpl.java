@@ -1,24 +1,30 @@
-package eu.tinoba.androidarcitecturetemplate.ui.home;
+package eu.tinoba.androidarcitecturetemplate.ui.cart;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.ProductApiResponse;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkService;
+import eu.tinoba.androidarcitecturetemplate.domain.models.Product;
 import eu.tinoba.androidarcitecturetemplate.manager.StringManager;
 import eu.tinoba.androidarcitecturetemplate.ui.base.presenters.BasePresenter;
 import io.reactivex.Scheduler;
 import timber.log.Timber;
 
-public final class HomePresenterImpl extends BasePresenter implements HomePresenter {
+public final class CartPresenterImpl extends BasePresenter implements CartPresenter {
 
     private final Scheduler subscribeScheduler;
     private final Scheduler observeScheduler;
     private final StringManager stringManager;
     private final NetworkService networkService;
 
-    private HomeView view;
+    private Map<String, Product> products = new HashMap<>();
 
-    public HomePresenterImpl(final Scheduler subscribeScheduler, final Scheduler observeScheduler, final StringManager stringManager,
+    private CartView view;
+
+    public CartPresenterImpl(final Scheduler subscribeScheduler, final Scheduler observeScheduler, final StringManager stringManager,
                              final NetworkService networkService) {
         this.subscribeScheduler = subscribeScheduler;
         this.observeScheduler = observeScheduler;
@@ -27,7 +33,7 @@ public final class HomePresenterImpl extends BasePresenter implements HomePresen
     }
 
     @Override
-    public void setView(final HomeView view) {
+    public void setView(final CartView view) {
         this.view = view;
     }
 
@@ -43,6 +49,15 @@ public final class HomePresenterImpl extends BasePresenter implements HomePresen
 
     private void onGetProductSuccess(final List<ProductApiResponse> productApiResponses) {
         Timber.e(productApiResponses.get(0).name.en);
+        if (view != null) {
+            final Product product = products.get(productApiResponses.get(0).name.en);
+            if (product != null) {
+                product.increaseCount();
+            } else {
+                products.put(productApiResponses.get(0).name.en, new Product(productApiResponses.get(0).name.en, 1));
+            }
+            view.addItemToCart(new ArrayList<>(products.values()));
+        }
     }
 
     private void onGetProductFailure(final Throwable throwable) {

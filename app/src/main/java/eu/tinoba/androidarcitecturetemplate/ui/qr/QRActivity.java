@@ -16,6 +16,7 @@ import java.util.List;
 import eu.tinoba.androidarcitecturetemplate.R;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.cart.CartActivity;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -41,13 +42,13 @@ public class QRActivity extends BaseActivity implements EasyPermissions.Permissi
         if (zXingScannerView != null) {
             zXingScannerView.stopCamera();
         }
-
     }
 
     @Override
     protected void inject(final ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
+
     @Override
     public void handleResult(final Result result) {
         try {
@@ -55,7 +56,7 @@ public class QRActivity extends BaseActivity implements EasyPermissions.Permissi
             Log.e("NAME", jsonObject.getString(NAME));
             Log.e("PIN", jsonObject.getString(PIN));
 
-//            startActivity(createIntent(this, Long.parseLong(jsonObject.getString(ITEM))));
+            startActivity(CartActivity.createIntent(this, jsonObject.getString(NAME), jsonObject.getString(PIN)));
             finish();
         } catch (JSONException e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -67,7 +68,6 @@ public class QRActivity extends BaseActivity implements EasyPermissions.Permissi
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-
     }
 
     @Override

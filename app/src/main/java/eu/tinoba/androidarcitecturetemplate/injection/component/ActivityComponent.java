@@ -6,8 +6,8 @@ import eu.tinoba.androidarcitecturetemplate.injection.module.PresenterModule;
 import eu.tinoba.androidarcitecturetemplate.injection.module.RouterModule;
 import eu.tinoba.androidarcitecturetemplate.injection.scope.ForActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
-import eu.tinoba.androidarcitecturetemplate.ui.home.HomePresenter;
-import eu.tinoba.androidarcitecturetemplate.ui.home.HomeRouter;
+import eu.tinoba.androidarcitecturetemplate.ui.cart.CartPresenter;
+import eu.tinoba.androidarcitecturetemplate.ui.cart.CartRouter;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginPresenter;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginRouter;
 
@@ -37,9 +37,9 @@ public interface ActivityComponent extends ActivityComponentActivityInjects, Act
         }
     }
 
-    HomeRouter getHomeRouter();
+    CartRouter getHomeRouter();
 
-    HomePresenter getHomePresenter();
+    CartPresenter getHomePresenter();
 
     LoginRouter getLoginRouter();
 

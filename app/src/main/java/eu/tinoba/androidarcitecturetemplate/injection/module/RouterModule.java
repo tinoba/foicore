@@ -5,8 +5,8 @@ import android.app.Activity;
 import dagger.Module;
 import dagger.Provides;
 import eu.tinoba.androidarcitecturetemplate.injection.scope.ForActivity;
-import eu.tinoba.androidarcitecturetemplate.ui.home.HomeRouter;
-import eu.tinoba.androidarcitecturetemplate.ui.home.HomeRouterImpl;
+import eu.tinoba.androidarcitecturetemplate.ui.cart.CartRouter;
+import eu.tinoba.androidarcitecturetemplate.ui.cart.CartRouterImpl;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginRouter;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginRouterImpl;
 
@@ -15,8 +15,8 @@ public final class RouterModule {
 
     @ForActivity
     @Provides
-    HomeRouter provideHomeRouter(final Activity activity) {
-        return new HomeRouterImpl(activity);
+    CartRouter provideHomeRouter(final Activity activity) {
+        return new CartRouterImpl(activity);
     }
 
     @ForActivity
