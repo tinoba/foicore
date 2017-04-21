@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Login screen  -->
+    <dimen name="login_screen_image_view_top_margin">128dp</dimen>
+    <dimen name="login_screen_image_view_margin_end">88dp</dimen>
+    <dimen name="login_screen_image_view_margin_start">66dp</dimen>
+
+    <dimen name="login_screen_text_view_top_margin">72dp</dimen>
+    <dimen name="login_screen_text_view_margin_start">32dp</dimen>
+    <dimen name="login_screen_text_view_text_size">14sp</dimen>
+
+    <dimen name="login_screen_text_input_layout_email_top_margin">16dp</dimen>
+    <dimen name="login_screen_text_input_layout_email_margin_start">32dp</dimen>
+    <dimen name="login_screen_text_input_layout_email_margin_end">32dp</dimen>
+    <dimen name="login_screen_text_input_layout_email_text_size">16sp</dimen>
+
+    <dimen name="login_screen_text_input_layout_password_top_margin">16dp</dimen>
+    <dimen name="login_screen_text_input_layout_password_margin_start">32dp</dimen>
+    <dimen name="login_screen_text_input_layout_password_margin_end">32dp</dimen>
+    <dimen name="login_screen_text_input_layout_password_text_size">16sp</dimen>
+
+    <dimen name="login_screen_button_bottom_margin">16dp</dimen>
+    <dimen name="login_screen_button_margin_start">16dp</dimen>
+    <dimen name="login_screen_button_margin_end">16dp</dimen>
+    <dimen name="login_screen_button_text_size">16sp</dimen>
+
+    <dimen name="login_screen_error_icon_margin_end">37dp</dimen>
+    <dimen name="login_screen_error_icon_margin_bottom">13dp</dimen>
+
+    <dimen name="login_screen_space_height">0dp</dimen>
+</resources>

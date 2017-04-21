@@ -1,36 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<LinearLayout
+    android:id="@+id/activity_login"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/login_button"
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_screen_space_height"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/login_activity_login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@mipmap/ic_launcher"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_screen_space_height"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/login_activity_login_credentials_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/password"
-        android:layout_alignStart="@+id/password"
-        android:layout_centerVertical="true"
-        android:text="Login"/>
+        android:layout_marginStart="@dimen/login_screen_text_view_margin_start"
+        android:text="@string/login_credentials"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/login_screen_text_view_text_size"/>
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="90dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="noeply@yaastest.com"/>
+        android:layout_marginEnd="@dimen/login_screen_text_input_layout_email_margin_end"
+        android:layout_marginStart="@dimen/login_screen_text_input_layout_email_margin_start"
+        android:layout_marginTop="@dimen/login_screen_text_input_layout_email_top_margin"
+        app:hintTextAppearance="@style/LoginTextInputStyleHint">
 
-    <EditText
-        android:text="secret"
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_activity_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/login_screen_text_input_layout_email_text_size"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login_button"
-        android:layout_alignStart="@+id/username"
-        android:layout_marginBottom="26dp"
-        android:ems="10"
-        android:inputType="textPassword"/>
-</RelativeLayout>
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/login_activity_error_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="@dimen/login_screen_error_icon_margin_bottom"
+            android:layout_marginEnd="@dimen/login_screen_error_icon_margin_end"
+            app:srcCompat="@drawable/ic_warning_red"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/login_activity_input_layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/login_screen_text_input_layout_password_margin_end"
+            android:layout_marginStart="@dimen/login_screen_text_input_layout_password_margin_start"
+            android:layout_marginTop="@dimen/login_screen_text_input_layout_password_top_margin"
+            app:hintTextAppearance="@style/LoginTextInputStyleHint">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_activity_input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_password"
+                android:inputType="textPassword"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/login_screen_text_input_layout_password_text_size"/>
+
+        </android.support.design.widget.TextInputLayout>
+    </FrameLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_screen_space_height"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/login_activity_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/login_screen_button_bottom_margin"
+            android:layout_marginEnd="@dimen/login_screen_button_margin_end"
+            android:layout_marginStart="@dimen/login_screen_button_margin_start"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/login_button"
+            android:textColor="@color/white"
+            android:textSize="@dimen/login_screen_button_text_size"/>
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/login_activity_spin_kit"
+            style="@style/SpinKitView.Large.ThreeBounce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/login_screen_button_bottom_margin"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorPrimaryDark"/>
+    </RelativeLayout>
+</LinearLayout>

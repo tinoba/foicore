@@ -14,4 +14,9 @@
         <item name="android:windowActionBarOverlay">true</item>
     </style>
 
+    <style name="LoginTextInputStyleHint" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
