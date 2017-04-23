@@ -92,7 +92,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         registerReceiver(broadcastReceiver, filter);
         registerReceiver(pairingRecivier, filter2);
 
-        cartListAdapter = new CartListAdapter();
+        cartListAdapter = new CartListAdapter(this);
         cartListAdapter.setListener(this);
         linearLayoutManager = new LinearLayoutManager(this);
 
