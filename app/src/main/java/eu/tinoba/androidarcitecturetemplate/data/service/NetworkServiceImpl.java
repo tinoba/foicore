@@ -33,7 +33,7 @@ public final class NetworkServiceImpl implements NetworkService {
     }
 
     @Override
-    public Single<List<ProductApiResponse>> getProduct(final String id) {
-        return Single.defer(() -> templateAPI.getProduct(PRODUCT_QUERY + id));
+    public Single<List<ProductApiResponse>> getProduct(final String authorization, final String id) {
+        return Single.defer(() -> templateAPI.getProduct("Bearer " + authorization, PRODUCT_QUERY + id));
     }
 }

@@ -3,9 +3,9 @@ package eu.tinoba.androidarcitecturetemplate.data.api;
 public interface APIConstants {
 
     String GRANT_TYPE = "client_credentials";
-    String CLIENT_ID = "27pXeRQdv43VDFGwVTM6Y3Ke3ZRUFI3T";
-    String CLIENT_SECRET = "7x6kb7ywGw0n8oQj";
-    String SCOPE = "hybris.tenant=foicore hybris.product_create hybris.product_publish";
+    String CLIENT_ID = "jt839qVtgjPhLXUigipC8wAXhNyQiODK";
+    String CLIENT_SECRET = "qIO19d6j2rki1IV4";
+    String SCOPE = "hybris.tenant=foicore1 hybris.product_create hybris.product_publish hybris.product_read_unpublished";
     String PRODUCT_QUERY = "code:";
 
     String AUTHORIZATION_HEADER = "Authorization";
@@ -14,7 +14,7 @@ public interface APIConstants {
 
     String BASE_URL = "https://api.beta.yaas.io/hybris/";
 
-    String PATH_LOGIN = "customer/v1/foicore/login";
+    String PATH_LOGIN = "customer/v1/foicore1/login";
     String PATH_TOKEN = "oauth2/v1/token";
-    String PATH_PRODUCT = "product/v2/foicore/products";
+    String PATH_PRODUCT = "product/v2/foicore1/products";
 }

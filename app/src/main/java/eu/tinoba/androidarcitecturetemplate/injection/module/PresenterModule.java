@@ -23,9 +23,10 @@ public final class PresenterModule {
 
     @ForActivity
     @Provides
-    CartPresenter provideHomePresenter(@Named(SUBSCRIBE_SCHEDULER) Scheduler subscribeScheduler, final NetworkService networkService,
-                                       @Named(OBSERVE_SCHEDULER) Scheduler observeScheduler, StringManager stringManager) {
-        return new CartPresenterImpl(subscribeScheduler, observeScheduler, stringManager, networkService);
+    CartPresenter provideCartPresenter(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler, final NetworkService networkService,
+                                       @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final StringManager stringManager,
+                                       final TemplatePreferences templatePreferences) {
+        return new CartPresenterImpl(subscribeScheduler, observeScheduler, stringManager, networkService, templatePreferences);
     }
 
     @ForActivity

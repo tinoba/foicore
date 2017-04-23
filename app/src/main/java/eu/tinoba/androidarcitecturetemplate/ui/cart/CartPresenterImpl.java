@@ -7,6 +7,7 @@ import java.util.Map;
 
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.ProductApiResponse;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkService;
+import eu.tinoba.androidarcitecturetemplate.data.storage.TemplatePreferences;
 import eu.tinoba.androidarcitecturetemplate.domain.models.Product;
 import eu.tinoba.androidarcitecturetemplate.manager.StringManager;
 import eu.tinoba.androidarcitecturetemplate.ui.base.presenters.BasePresenter;
@@ -19,17 +20,19 @@ public final class CartPresenterImpl extends BasePresenter implements CartPresen
     private final Scheduler observeScheduler;
     private final StringManager stringManager;
     private final NetworkService networkService;
+    private final TemplatePreferences templatePreferences;
 
     private Map<String, Product> products = new HashMap<>();
 
     private CartView view;
 
     public CartPresenterImpl(final Scheduler subscribeScheduler, final Scheduler observeScheduler, final StringManager stringManager,
-                             final NetworkService networkService) {
+                             final NetworkService networkService, final TemplatePreferences templatePreferences) {
         this.subscribeScheduler = subscribeScheduler;
         this.observeScheduler = observeScheduler;
         this.stringManager = stringManager;
         this.networkService = networkService;
+        this.templatePreferences = templatePreferences;
     }
 
     @Override
@@ -40,7 +43,7 @@ public final class CartPresenterImpl extends BasePresenter implements CartPresen
     @Override
     public void addProductToCart(final String id) {
         if (view != null) {
-            addDisposable(networkService.getProduct(id)
+            addDisposable(networkService.getProduct(templatePreferences.getBaseToken(), id)
                                         .observeOn(observeScheduler)
                                         .subscribeOn(subscribeScheduler)
                                         .subscribe(this::onGetProductSuccess, this::onGetProductFailure));

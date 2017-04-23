@@ -14,6 +14,6 @@ public interface NetworkService {
 
     Single<AccessTokenResponse> getToken();
 
-    Single<List<ProductApiResponse>> getProduct(String id);
+    Single<List<ProductApiResponse>> getProduct(String authorization, String id);
 }
 
