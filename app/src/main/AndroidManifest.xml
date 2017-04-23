@@ -20,7 +20,9 @@
         <activity
             android:name=".ui.cart.CartActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
