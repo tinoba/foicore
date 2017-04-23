@@ -22,6 +22,7 @@ import eu.tinoba.androidarcitecturetemplate.R;
 import eu.tinoba.androidarcitecturetemplate.domain.models.HistoryPlan;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.map.ShopMapActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.qr.QRActivity;
 
 public class HomeActivity extends BaseActivity implements HomeActivityRecyclerViewAdapter.Listener {
@@ -118,7 +119,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
                 Toast.makeText(this, "OPEN DISCOUNT ACTIVITY", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.map:
-                Toast.makeText(this, "OPEN MAP ACTIVITY", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, ShopMapActivity.class));
                 break;
             default:
                 break;

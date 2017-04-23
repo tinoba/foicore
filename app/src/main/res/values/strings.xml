@@ -14,5 +14,6 @@
     <string name="login_error_description">Username or Password is incorrect.</string>
     <string name="activity_home_povijest_kupovina">Povijest kupovina</string>
     <string name="history_plan_item_iznos_kupovine">Iznos kupovine:</string>
+    <string name="title_activity_shop_map">Map</string>
 
 </resources>
