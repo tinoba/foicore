@@ -56,18 +56,18 @@ public class SearchProductResultFragment extends Fragment implements SearchProdu
         //TODO TEST DATA
 
         searchResults.clear();
-        searchResults.add(new Product("Mlijeko", 0));
-        searchResults.add(new Product("Kupus", 0));
-        searchResults.add(new Product("Ajvar", 0));
-        searchResults.add(new Product("Sve", 0));
-        searchResults.add(new Product("Kruh", 0));
-        searchResults.add(new Product("AAAAAAAA SVE", 0));
-        searchResults.add(new Product("Mlijeko", 0));
-        searchResults.add(new Product("Kupus", 0));
-        searchResults.add(new Product("Ajvar", 0));
-        searchResults.add(new Product("Sve", 0));
-        searchResults.add(new Product("Kruh", 0));
-        searchResults.add(new Product("AAAAAAAA SVE", 0));
+        searchResults.add(new Product("Mlijeko", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Kupus", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Ajvar", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Sve", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Kruh", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("AAAAAAAA SVE", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Mlijeko", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Kupus", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Ajvar", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Sve", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("Kruh", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
+        searchResults.add(new Product("AAAAAAAA SVE", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
         searchAdapter.setData(searchResults);
 
         return view;

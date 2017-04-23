@@ -58,7 +58,7 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        cartListAdapter = new CartListAdapter();
+        cartListAdapter = new CartListAdapter(this);
 
         planRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -131,7 +131,7 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
             }
         }
         if (!productInList) {
-            productList.add(new Product(productName, 1));
+            productList.add(new Product(productName, 1, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 4.54));
         }
         cartListAdapter.setData(productList);
     }
