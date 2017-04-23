@@ -9,4 +9,8 @@ public interface PreferenceRepository {
     void setAccessToken(String token);
 
     String getAccessToken();
+
+    void setBaseToken(String token);
+
+    String getBaseToken();
 }

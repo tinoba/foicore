@@ -48,6 +48,7 @@ public final class LoginPresenterImpl extends BasePresenter implements LoginPres
     }
 
     private void onGetTokenSuccess(final LoginApiRequest loginApiRequest, final AccessTokenResponse accessTokenResponse) {
+        templatePreferences.setBaseToken(accessTokenResponse.accessToken);
         if (view != null) {
             Timber.e(accessTokenResponse.accessToken);
             addDisposable(networkService.login(loginApiRequest, accessTokenResponse.accessToken)

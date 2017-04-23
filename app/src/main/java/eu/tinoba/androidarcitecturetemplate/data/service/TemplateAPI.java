@@ -45,5 +45,5 @@ public interface TemplateAPI {
 
     @Headers(CONTENT_TYPE_HEADER)
     @GET(PATH_PRODUCT)
-    Single<List<ProductApiResponse>> getProduct(@Query("q") String code);
+    Single<List<ProductApiResponse>> getProduct(@Header(AUTHORIZATION_HEADER) String authorization, @Query("q") String code);
 }
