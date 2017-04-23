@@ -23,6 +23,7 @@ import eu.tinoba.androidarcitecturetemplate.domain.models.HistoryPlan;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.qr.QRActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.search.SearchAndCreatePlanActivity;
 
 public class HomeActivity extends BaseActivity implements HomeActivityRecyclerViewAdapter.Listener {
 
@@ -97,7 +98,6 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
 
     @OnClick(R.id.fab)
     public void goToChart() {
-        //todo add check if mobile is connected to a bluetooth, if it is then go directly to chart activity else go to qr scanner
         startActivity(new Intent(HomeActivity.this, QRActivity.class));
     }
 
@@ -112,7 +112,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.plan:
-                Toast.makeText(this, "OPEN PLAN ACTIVITY", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, SearchAndCreatePlanActivity.class));
                 break;
             case R.id.discount:
                 Toast.makeText(this, "OPEN DISCOUNT ACTIVITY", Toast.LENGTH_SHORT).show();

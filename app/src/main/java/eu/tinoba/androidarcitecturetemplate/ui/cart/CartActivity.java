@@ -316,6 +316,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
+
                 cartListAdapter.products.get(position).decreaseCount();
                 cartListAdapter.products.remove(position);
                 cartListAdapter.notifyDataSetChanged();
