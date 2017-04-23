@@ -59,10 +59,12 @@ public final class LoginPresenterImpl extends BasePresenter implements LoginPres
 
     private void onGetTokenFailure(final Throwable throwable) {
         Timber.e(throwable);
+        view.showError();
     }
 
     private void onLoginFailure(final Throwable throwable) {
         Timber.e(throwable);
+        view.showError();
     }
 
     private void onLoginSuccess(final LoginApiResponse loginApiResponse) {
