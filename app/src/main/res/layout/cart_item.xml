@@ -45,9 +45,10 @@
                 android:id="@+id/product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
                 android:layout_weight="1.5"
                 android:textColor="#494949"
-                android:textSize="21sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="50,00kn"/>
         </LinearLayout>
@@ -60,7 +61,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="16dp"
             android:layout_toEndOf="@+id/product_image"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             tools:text="Super dugacki kul opis prozvoda ehheh aja da ke a"/>
 
@@ -68,7 +69,7 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/product_image"
+            android:layout_below="@+id/product_description"
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryDark"/>
 

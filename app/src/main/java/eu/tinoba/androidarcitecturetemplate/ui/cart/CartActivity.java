@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -47,6 +48,9 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     @BindView(R.id.activity_cart_list_of_products)
     RecyclerView cartList;
 
+    @BindView(R.id.activity_cart_toolbar)
+    Toolbar toolbar;
+
     private static final int PERMISSION_CODE = 1;
     private static final String DEVICE_NAME_ID = "deviceName";
 
@@ -79,6 +83,12 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         setContentView(R.layout.activity_cart);
 
         ButterKnife.bind(this);
+
+        toolbar.setTitle(R.string.kosarica);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         filter = new IntentFilter();
 
@@ -235,6 +245,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
+
                 cartListAdapter.products.get(position).decreaseCount();
                 cartListAdapter.products.remove(position);
                 cartListAdapter.notifyDataSetChanged();

@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context="eu.tinoba.androidarcitecturetemplate.ui.cart.CartActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_cart_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@color/white"/>
+
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         android:id="@+id/connecting_progress_view"
         android:layout_width="30dp"
@@ -30,6 +38,7 @@
         android:id="@+id/activity_cart_list_of_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/activity_cart_toolbar"
         android:scrollbarStyle="insideOverlay"
         android:scrollbars="none"
         android:visibility="gone"/>

@@ -6,6 +6,7 @@
     <string name="find_shop_location">Pronađi lokaciju trgovina</string>
 
     <string name="home_screen">Početni zaslon</string>
+    <string name="kosarica">Košarica</string>
 
     <string name="login_email">E-mail</string>
     <string name="login_password">Password</string>
@@ -14,6 +15,7 @@
     <string name="login_error_description">Username or Password is incorrect.</string>
     <string name="activity_home_povijest_kupovina">Povijest kupovina</string>
     <string name="history_plan_item_iznos_kupovine">Iznos kupovine:</string>
+    <string name="search_and_plan_activity_pretrazite_proizvode">Pretražite proizvode...</string>
     <string name="connecting_with_bluetooth">Connecting with bluetooth!</string>
 
 </resources>
