@@ -26,11 +26,11 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
 
     private Listener listener = Listener.EMPTY;
 
-    List<Product> products = new ArrayList<>();
+    final List<Product> products = new ArrayList<>();
 
     @Override
     public CartListAdapter.PlanViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_row, parent, false);
+        final View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
         return new PlanViewHolder(v);
     }
 
@@ -60,7 +60,7 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
         return products.size();
     }
 
-    public void setData(List<Product> data) {
+    public void setData(final List<Product> data) {
         products.clear();
         products.addAll(data);
         notifyDataSetChanged();
@@ -75,7 +75,7 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
         @BindView(R.id.product_name)
         protected TextView productName;
 
-        @BindView(R.id.product_count)
+        @BindView(R.id.quantity_edit)
         protected TextView productCount;
 
         @BindView(R.id.button_add)
