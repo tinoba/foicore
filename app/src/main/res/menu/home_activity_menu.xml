@@ -2,9 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/qrScanner"
-        android:icon="@drawable/ic_camera_enhance_white_24dp"
-        android:title="@string/qr_scanner"
+        android:id="@+id/map"
+        android:icon="@drawable/ic_map_white_24dp"
+        android:title="@string/find_shop_location"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/discount"
+        android:icon="@drawable/ic_show_chart_white_24dp"
+        android:title="@string/check_discount"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/plan"
+        android:icon="@drawable/ic_note_add_white_24dp"
+        android:title="@string/create_new_plan"
         app:showAsAction="always"/>
 
 </menu>
