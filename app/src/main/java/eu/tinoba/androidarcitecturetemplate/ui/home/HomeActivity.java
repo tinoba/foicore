@@ -133,6 +133,6 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
 
     @Override
     public void getHistoryId(final String id) {
-
+        Toast.makeText(this, "id kliknutog: " + id, Toast.LENGTH_SHORT).show();
     }
 }
