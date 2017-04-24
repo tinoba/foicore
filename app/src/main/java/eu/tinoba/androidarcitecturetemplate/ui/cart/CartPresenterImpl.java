@@ -51,19 +51,28 @@ public final class CartPresenterImpl extends BasePresenter implements CartPresen
     }
 
     private void onGetProductSuccess(final List<ProductApiResponse> productApiResponses) {
-        Timber.e(productApiResponses.get(0).name.en);
-        if (view != null) {
-            final Product product = products.get(productApiResponses.get(0).name.en);
-            if (product != null) {
-                product.increaseCount();
-            } else {
-                products.put(productApiResponses.get(0).name.en, new Product(productApiResponses.get(0).name.en, 1));
+        if (!productApiResponses.isEmpty()) {
+            Timber.e(productApiResponses.get(0).name.en);
+            if (view != null) {
+                final Product product = products.get(productApiResponses.get(0).name.en);
+                if (product != null) {
+                    product.increaseCount();
+                } else {
+                    products.put(productApiResponses.get(0).name.en,
+                                 new Product(productApiResponses.get(0).name.en, 1, productApiResponses.get(0).media.get(0).url, productApiResponses.get(0).description.en,
+                                             productApiResponses.get(0).mixins.price.originalAmount));
+                }
+                view.addItemToCart(new ArrayList<>(products.values()));
             }
-            view.addItemToCart(new ArrayList<>(products.values()));
         }
     }
 
     private void onGetProductFailure(final Throwable throwable) {
         Timber.e(throwable);
+    }
+
+    @Override
+    public void removeProductFromMap(final String name) {
+        products.remove(name);
     }
 }

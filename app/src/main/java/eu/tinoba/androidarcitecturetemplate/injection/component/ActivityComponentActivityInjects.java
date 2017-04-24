@@ -4,6 +4,7 @@ import eu.tinoba.androidarcitecturetemplate.ui.cart.CartActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.home.HomeActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.qr.QRActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.search.SearchAndCreatePlanActivity;
 
 public interface ActivityComponentActivityInjects {
 
@@ -15,4 +16,5 @@ public interface ActivityComponentActivityInjects {
 
     void inject(HomeActivity homeActivity);
 
+    void inject(SearchAndCreatePlanActivity searchAndCreatePlanActivity);
 }

@@ -9,6 +9,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import eu.tinoba.androidarcitecturetemplate.data.api.NetworkInterceptor;
+import eu.tinoba.androidarcitecturetemplate.data.api.converter.ProductsApiConverter;
+import eu.tinoba.androidarcitecturetemplate.data.api.converter.ProductsApiConverterImpl;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkService;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkServiceImpl;
 import eu.tinoba.androidarcitecturetemplate.data.service.TemplateAPI;
@@ -77,5 +79,11 @@ public final class ApiModule {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return loggingInterceptor;
+    }
+
+    @Provides
+    @Singleton
+    ProductsApiConverter provideProductsApiConverter() {
+        return new ProductsApiConverterImpl();
     }
 }

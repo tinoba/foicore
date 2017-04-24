@@ -5,4 +5,6 @@ public interface CartPresenter {
     void setView(CartView view);
 
     void addProductToCart(String id);
+
+    void removeProductFromMap(String name);
 }
