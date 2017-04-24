@@ -116,7 +116,7 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
     }
 
     @Override
-    public void onProductSelected(final String productName) {
+    public void onProductSelected(final Product prod) {
         searchProduct.setText("");
         searchProduct.clearFocus();
         mainLayout.requestFocus();
@@ -125,13 +125,13 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
         boolean productInList = false;
         for (final Product product : productList) {
-            if (product.getName().equals(productName)) {
+            if (product.getName().equals(prod.getName())) {
                 product.increaseCount();
                 productInList = true;
             }
         }
         if (!productInList) {
-            productList.add(new Product(productName, 1, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 4.54));
+            productList.add(new Product(prod.getName(), prod.getCount(), prod.getImageUrl(), prod.getDescription(), prod.getPrice()));
         }
         cartListAdapter.setData(productList);
     }

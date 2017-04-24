@@ -4,6 +4,7 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import eu.tinoba.androidarcitecturetemplate.data.api.converter.ProductsApiConverter;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkService;
 import eu.tinoba.androidarcitecturetemplate.data.storage.TemplatePreferences;
 import eu.tinoba.androidarcitecturetemplate.injection.scope.ForActivity;
@@ -13,6 +14,8 @@ import eu.tinoba.androidarcitecturetemplate.ui.cart.CartPresenterImpl;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginPresenter;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginPresenterImpl;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginRouter;
+import eu.tinoba.androidarcitecturetemplate.ui.search.SearchProductResultPresenter;
+import eu.tinoba.androidarcitecturetemplate.ui.search.SearchProductResultPresenterImpl;
 import io.reactivex.Scheduler;
 
 import static eu.tinoba.androidarcitecturetemplate.injection.module.ThreadingModule.OBSERVE_SCHEDULER;
@@ -35,5 +38,13 @@ public final class PresenterModule {
                                          @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final StringManager stringManager,
                                          final TemplatePreferences templatePreferences, final LoginRouter loginRouter) {
         return new LoginPresenterImpl(subscribeScheduler, observeScheduler, stringManager, networkService, templatePreferences, loginRouter);
+    }
+
+    @ForActivity
+    @Provides
+    SearchProductResultPresenter provideSearchProductResultPresenter(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler, final NetworkService networkService,
+                                                                     @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler, final TemplatePreferences templatePreferences,
+                                                                     final ProductsApiConverter converter) {
+        return new SearchProductResultPresenterImpl(subscribeScheduler, observeScheduler, networkService, templatePreferences, converter);
     }
 }

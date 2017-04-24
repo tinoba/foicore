@@ -10,6 +10,7 @@ import eu.tinoba.androidarcitecturetemplate.ui.cart.CartPresenter;
 import eu.tinoba.androidarcitecturetemplate.ui.cart.CartRouter;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginPresenter;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginRouter;
+import eu.tinoba.androidarcitecturetemplate.ui.search.SearchProductResultPresenter;
 
 @ForActivity
 @Component(
@@ -44,4 +45,6 @@ public interface ActivityComponent extends ActivityComponentActivityInjects, Act
     LoginRouter getLoginRouter();
 
     LoginPresenter getLoginPresenter();
+
+    SearchProductResultPresenter getSearchProductResultPresenter();
 }
