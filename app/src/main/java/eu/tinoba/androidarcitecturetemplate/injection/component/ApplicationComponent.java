@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import eu.tinoba.androidarcitecturetemplate.application.TemplateApplication;
+import eu.tinoba.androidarcitecturetemplate.data.api.converter.ProductsApiConverter;
 import eu.tinoba.androidarcitecturetemplate.data.service.NetworkService;
 import eu.tinoba.androidarcitecturetemplate.data.storage.TemplatePreferences;
 import eu.tinoba.androidarcitecturetemplate.device.ApplicationInformation;
@@ -68,4 +69,6 @@ public interface ApplicationComponent extends ApplicationComponentInjects {
     TemplatePreferences getTemplatePreferences();
 
     NetworkService getNetworkService();
+
+    ProductsApiConverter getProductsApiConverter();
 }

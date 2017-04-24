@@ -2,7 +2,6 @@ package eu.tinoba.androidarcitecturetemplate.ui.search;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,12 +11,19 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.tinoba.androidarcitecturetemplate.R;
 import eu.tinoba.androidarcitecturetemplate.domain.models.Product;
+import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
+import eu.tinoba.androidarcitecturetemplate.ui.base.fragments.BaseFragment;
 
-public class SearchProductResultFragment extends Fragment implements SearchProductRecyclerViewAdapter.Listener {
+public class SearchProductResultFragment extends BaseFragment implements SearchProductRecyclerViewAdapter.Listener, SearchProductResultView{
+
+    @Inject
+    SearchProductResultPresenter presenter;
 
     private OnFragmentInteractionListener listener;
     private SearchProductRecyclerViewAdapter searchAdapter;
@@ -30,6 +36,11 @@ public class SearchProductResultFragment extends Fragment implements SearchProdu
     List<Product> filteredList = new ArrayList<>();
 
     public SearchProductResultFragment() {
+    }
+
+    @Override
+    protected void inject(final ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 
     @Override
@@ -54,7 +65,7 @@ public class SearchProductResultFragment extends Fragment implements SearchProdu
         recyclerViewSearch.setAdapter(searchAdapter);
 
         //TODO TEST DATA
-
+/*
         searchResults.clear();
         searchResults.add(new Product("Mlijeko", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
         searchResults.add(new Product("Kupus", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
@@ -68,9 +79,24 @@ public class SearchProductResultFragment extends Fragment implements SearchProdu
         searchResults.add(new Product("Sve", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
         searchResults.add(new Product("Kruh", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
         searchResults.add(new Product("AAAAAAAA SVE", 0, "https://en.opensuse.org/images/4/49/Amarok-logo-small.png", "vrlo fino", 5.45));
-        searchAdapter.setData(searchResults);
+        searchAdapter.setData(searchResults);*/
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.setView(this);
+        presenter.renderView();
+    }
+
+    @Override
+    public void showData(final List<Product> products) {
+        searchResults.clear();
+        searchResults.addAll(products);
+        searchAdapter.setData(products);
     }
 
     @Override
@@ -90,7 +116,7 @@ public class SearchProductResultFragment extends Fragment implements SearchProdu
         listener = null;
     }
 
-    public void searchProducts(String filter) {
+    public void searchProducts(final String filter) {
         filteredList.clear();
 
         if (searchResults != null) {
@@ -108,13 +134,13 @@ public class SearchProductResultFragment extends Fragment implements SearchProdu
 
     public interface OnFragmentInteractionListener {
 
-        void onProductSelected(String productName);
+        void onProductSelected(Product product);
     }
 
     @Override
-    public void getProductname(final String productName) {
+    public void getProduct(final Product product) {
         if (listener != null) {
-            listener.onProductSelected(productName);
+            listener.onProductSelected(product);
         }
     }
 }

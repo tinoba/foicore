@@ -21,7 +21,7 @@ public class SearchProductRecyclerViewAdapter extends RecyclerView.Adapter<Searc
 
         Listener EMPTY = new EmptyListener();
 
-        void getProductname(String productName);
+        void getProduct(Product product);
     }
 
     private Listener listener = Listener.EMPTY;
@@ -62,7 +62,7 @@ public class SearchProductRecyclerViewAdapter extends RecyclerView.Adapter<Searc
 
         @OnClick(R.id.search_product_name)
         public void onItemClicked() {
-            listener.getProductname(productList.get(getAdapterPosition()).getName());
+            listener.getProduct(productList.get(getAdapterPosition()));
         }
 
         public SearchProductViewHolder(View itemView) {
@@ -74,7 +74,7 @@ public class SearchProductRecyclerViewAdapter extends RecyclerView.Adapter<Searc
     private static final class EmptyListener implements Listener {
 
         @Override
-        public void getProductname(String name) {
+        public void getProduct(final Product product) {
             //NO OP
         }
     }
