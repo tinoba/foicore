@@ -19,5 +19,7 @@
     <string name="connecting_with_bluetooth">Connecting with bluetooth!</string>
     <string name="activity_cart_pay_button">Izvrši plaćanje</string>
     <string name="activity_cart_empty_text">Vaša košarica je prazna, dodajte proizvode!</string>
+    <string name="activity_search_plan_empty_text">Vaš plan kupovine je prazan, dodajte proizvode!</string>
+    <string name="activity_search_plan_save_plan">Spremi plan</string>
 
 </resources>

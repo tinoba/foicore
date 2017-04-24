@@ -38,7 +38,7 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
 
     private Listener listener = Listener.EMPTY;
 
-    final List<Product> products = new ArrayList<>();
+    public final List<Product> products = new ArrayList<>();
 
     @Override
     public CartListAdapter.PlanViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
