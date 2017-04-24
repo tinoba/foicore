@@ -161,6 +161,11 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
                .setNegativeButton("No", onClickListener).show();
     }
 
+    @Override
+    public void countChanged() {
+        //todo izracunaj cijenu, spremi plan dodati
+    }
+
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:

@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
@@ -50,6 +51,18 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
 
     @BindView(R.id.activity_cart_toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.activity_cart_total_payment)
+    TextView totalPayment;
+
+    @BindView(R.id.activity_cart_pay_button)
+    TextView payButton;
+
+    @BindView(R.id.activity_cart_empty_text)
+    TextView emptyText;
+
+    @BindView(R.id.activity_cart_empty_image)
+    ImageView emptyImage;
 
     private static final int PERMISSION_CODE = 1;
     private static final String DEVICE_NAME_ID = "deviceName";
@@ -126,6 +139,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     protected void inject(final ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
+
     @AfterPermissionGranted(PERMISSION_CODE)
     private void requestPermission() {
         final String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -204,7 +218,8 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         connectThread = new ConnectThread(device, bluetoothAdapter, presenter, stopWorker, readBufferPosition, readBuffer);
         connectThread.start();
 
-        cartList.setVisibility(View.VISIBLE);
+        emptyText.setVisibility(View.VISIBLE);
+        emptyImage.setVisibility(View.VISIBLE);
         connectingProgressView.setVisibility(View.GONE);
         connectingTextView.setVisibility(View.GONE);
         Timber.e("Bluetooth Opened");
@@ -230,8 +245,13 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
 
     @Override
     public void addItemToCart(final List<Product> products) {
+        emptyImage.setVisibility(View.GONE);
+        emptyText.setVisibility(View.GONE);
+        cartList.setVisibility(View.VISIBLE);
+        totalPayment.setVisibility(View.VISIBLE);
+        payButton.setVisibility(View.VISIBLE);
         cartListAdapter.setData(products);
-        cartListAdapter.notifyDataSetChanged();
+        calculatePrice(products);
     }
 
     @Override
@@ -242,13 +262,38 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
                .setNegativeButton("No", onClickListener).show();
     }
 
+    @Override
+    public void countChanged() {
+        calculatePrice(cartListAdapter.products);
+    }
+
+    private void calculatePrice(List<Product> products) {
+        double totalPrice = 0;
+        for (final Product product : products) {
+            totalPrice += product.getCount() * product.getPrice();
+        }
+        String roundedString = String.format("Ukupno: %.2f kn", totalPrice);
+        totalPayment.setText(roundedString);
+    }
+
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
 
-                cartListAdapter.products.get(position).decreaseCount();
+                presenter.removeProductFromMap(cartListAdapter.products.get(position).getName());
                 cartListAdapter.products.remove(position);
                 cartListAdapter.notifyDataSetChanged();
+
+                if (cartListAdapter.products.isEmpty()) {
+                    cartList.setVisibility(View.GONE);
+                    totalPayment.setVisibility(View.GONE);
+                    payButton.setVisibility(View.GONE);
+                    emptyImage.setVisibility(View.VISIBLE);
+                    emptyText.setVisibility(View.VISIBLE);
+                } else {
+                    calculatePrice(cartListAdapter.products);
+                }
+
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 break;

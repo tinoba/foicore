@@ -26,6 +26,8 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
         Listener EMPTY = new EmptyListener();
 
         void openRemoveDialog(int position);
+
+        void countChanged();
     }
 
     private final Context context;
@@ -57,6 +59,7 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
         holder.buttonAdd.setOnClickListener(v -> {
             products.get(position).increaseCount();
             notifyDataSetChanged();
+            listener.countChanged();
         });
 
         holder.buttonRemove.setOnClickListener(v -> {
@@ -64,6 +67,7 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
                 listener.openRemoveDialog(position);
             } else {
                 products.get(position).decreaseCount();
+                listener.countChanged();
                 notifyDataSetChanged();
             }
         });
@@ -117,6 +121,11 @@ public final class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.
 
         @Override
         public void openRemoveDialog(int position) {
+            //NO OP
+        }
+
+        @Override
+        public void countChanged() {
             //NO OP
         }
     }
