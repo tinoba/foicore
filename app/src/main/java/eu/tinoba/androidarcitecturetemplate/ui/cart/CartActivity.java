@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,7 +57,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     TextView totalPayment;
 
     @BindView(R.id.activity_cart_pay_button)
-    TextView payButton;
+    Button payButton;
 
     @BindView(R.id.activity_cart_empty_text)
     TextView emptyText;
