@@ -70,4 +70,9 @@ public final class CartPresenterImpl extends BasePresenter implements CartPresen
     private void onGetProductFailure(final Throwable throwable) {
         Timber.e(throwable);
     }
+
+    @Override
+    public void removeProductFromMap(final String name) {
+        products.remove(name);
+    }
 }
