@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/custom_marker_view"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp">
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/round_marker_background"
+        android:padding="5dp"
+        >
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/landmark_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Eiffel Tower"
+            android:textColor="@android:color/black"
+            android:textSize="11dp"
+            />
+
+        <TextView
+            android:id="@+id/landmard_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/landmark_title"
+            android:layout_marginLeft="10dp"
+            android:text="Most popular landmark in Paris"
+            android:textColor="@android:color/black"
+            android:textSize="8dp"
+            />
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/landmark_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_launcher"
+        />
+
+</RelativeLayout>

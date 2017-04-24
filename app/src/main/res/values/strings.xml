@@ -15,6 +15,7 @@
     <string name="login_error_description">Username or Password is incorrect.</string>
     <string name="activity_home_povijest_kupovina">Povijest kupovina</string>
     <string name="history_plan_item_iznos_kupovine">Iznos kupovine:</string>
+    <string name="title_activity_shop_map">Map</string>
     <string name="search_and_plan_activity_pretrazite_proizvode">Pretražite proizvode...</string>
     <string name="connecting_with_bluetooth">Connecting with bluetooth!</string>
     <string name="activity_cart_pay_button">Izvrši plaćanje</string>

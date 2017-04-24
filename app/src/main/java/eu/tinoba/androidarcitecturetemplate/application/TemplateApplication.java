@@ -1,6 +1,8 @@
 package eu.tinoba.androidarcitecturetemplate.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.EntypoModule;
@@ -42,5 +44,11 @@ public final class TemplateApplication extends Application {
 
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        MultiDex.install(this);
     }
 }
