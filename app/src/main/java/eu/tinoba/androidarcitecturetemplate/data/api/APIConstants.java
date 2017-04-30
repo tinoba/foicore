@@ -19,5 +19,6 @@ public interface APIConstants {
     String PATH_TOKEN = "oauth2/v1/token";
     String PATH_PRODUCT = "product/v2/foicore1/products";
     String PATH_CHECKOUT = "history.php";
+    String PATH_HISTORIES = "history.php";
     String PATH_HISTORY = "history.php";
 }
