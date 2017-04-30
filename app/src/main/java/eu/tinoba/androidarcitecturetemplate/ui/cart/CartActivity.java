@@ -8,17 +8,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.io.UnsupportedEncodingException;
@@ -50,8 +51,8 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     @BindView(R.id.activity_cart_list_of_products)
     RecyclerView cartList;
 
-    @BindView(R.id.activity_cart_toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.activity_cart_toolbar)
+//    Toolbar toolbar;
 
     @BindView(R.id.activity_cart_total_payment)
     TextView totalPayment;
@@ -98,8 +99,9 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
 
         ButterKnife.bind(this);
 
-        toolbar.setTitle(R.string.kosarica);
-        setSupportActionBar(toolbar);
+//        toolbar.setTitle(R.string.kosarica);
+//        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.kosarica);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -223,6 +225,15 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         emptyImage.setVisibility(View.VISIBLE);
         connectingProgressView.setVisibility(View.GONE);
         connectingTextView.setVisibility(View.GONE);
+        TSnackbar snackbar = TSnackbar
+                .make(findViewById(android.R.id.content), "Successfully connected", TSnackbar.LENGTH_LONG);
+        snackbar.setIconRight(R.drawable.ic_bluetooth_connected_white_24dp, 24);
+        snackbar.setIconPadding(8);
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(Color.parseColor("#00FF00"));
+        TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.show();
         Timber.e("Bluetooth Opened");
     }
 

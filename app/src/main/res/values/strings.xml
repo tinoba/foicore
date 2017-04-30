@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidArcitectureTemplate</string>
+    <string name="app_name">Scan \'n buy</string>
     <string name="camera_permission_request">Allow application to access camera?</string>
     <string name="create_new_plan">Kreiraj novi plan</string>
     <string name="check_discount">Pregled akcija</string>

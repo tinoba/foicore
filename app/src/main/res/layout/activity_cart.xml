@@ -1,94 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="eu.tinoba.androidarcitecturetemplate.ui.cart.CartActivity">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/activity_cart_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ToolbarTheme"
-        app:titleTextColor="@color/white"/>
-
-    <com.github.rahatarmanahmed.cpv.CircularProgressView
-        android:id="@+id/connecting_progress_view"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        app:cpv_animAutostart="true"
-        app:cpv_indeterminate="true"/>
-
-    <TextView
-        android:id="@+id/connecting_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/connecting_progress_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="@string/connecting_with_bluetooth"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_cart_list_of_products"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/activity_cart_total_payment"
-        android:layout_below="@+id/activity_cart_toolbar"
-        android:layout_marginBottom="8dp"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="none"
-        android:visibility="gone"/>
+        tools:context="eu.tinoba.androidarcitecturetemplate.ui.cart.CartActivity">
 
-    <TextView
-        android:id="@+id/activity_cart_total_payment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/activity_cart_pay_button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="6dp"
-        android:textColor="#494949"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:text="Ukupno: 100 kn "/>
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/activity_cart_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="@color/colorPrimary"-->
+            <!--android:theme="@style/ToolbarTheme"-->
+            <!--app:titleTextColor="@color/white"/>-->
 
-    <Button
-        android:id="@+id/activity_cart_pay_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/activity_cart_pay_button"
-        android:textColor="@color/white"
-        android:visibility="gone"/>
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            android:id="@+id/connecting_progress_view"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            app:cpv_animAutostart="true"
+            app:cpv_indeterminate="true"/>
 
-    <ImageView
-        android:id="@+id/activity_cart_empty_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/shopping_cart_empty_blue"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/connecting_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/connecting_progress_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="@string/connecting_with_bluetooth"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/activity_cart_empty_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_cart_empty_image"
-        android:layout_centerHorizontal="true"
-        android:text="@string/activity_cart_empty_text"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:visibility="gone"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_cart_list_of_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/activity_cart_total_payment"
+            android:layout_marginBottom="8dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="none"
+            android:visibility="gone"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/activity_cart_total_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/activity_cart_pay_button"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="#494949"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="Ukupno: 100 kn "/>
+
+        <Button
+            android:id="@+id/activity_cart_pay_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/activity_cart_pay_button"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/activity_cart_empty_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/shopping_cart_empty_blue"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/activity_cart_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_cart_empty_image"
+            android:layout_centerHorizontal="true"
+            android:text="@string/activity_cart_empty_text"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

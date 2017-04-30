@@ -41,6 +41,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+
     testCompile 'junit:junit:4.12'
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     compile 'com.jakewharton:butterknife:8.2.1'
@@ -75,9 +78,8 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2'
     compile 'com.joanzapata.iconify:android-iconify:2.2.2'
     compile 'com.google.android.gms:play-services:10.2.1'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:multidex:1.0.1'
-
+    compile 'com.androidadvance:topsnackbar:1.1.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     apt 'com.google.dagger:dagger-compiler:2.5'
