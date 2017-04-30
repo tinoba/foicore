@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Scan \'n buy</string>
-    <string name="camera_permission_request">Allow application to access camera?</string>
+    <string name="camera_permission_request">Dopusti aplikaciji da koristi kameru?</string>
     <string name="create_new_plan">Kreiraj novi plan</string>
     <string name="check_discount">Pregled akcija</string>
     <string name="find_shop_location">Pronađi lokaciju trgovina</string>
@@ -9,15 +9,15 @@
     <string name="kosarica">Košarica</string>
 
     <string name="login_email">E-mail</string>
-    <string name="login_password">Password</string>
-    <string name="login_credentials">Enter your credentials:</string>
+    <string name="login_password">Lozinka</string>
+    <string name="login_credentials">Unesite vaše podatke:</string>
     <string name="login_button">LOGIN</string>
-    <string name="login_error_description">Username or Password is incorrect.</string>
+    <string name="login_error_description">Korisničko ime ili lozinka nisu ispravni.</string>
     <string name="activity_home_povijest_kupovina">Povijest kupovina</string>
     <string name="history_plan_item_iznos_kupovine">Iznos kupovine:</string>
     <string name="title_activity_shop_map">Map</string>
     <string name="search_and_plan_activity_pretrazite_proizvode">Pretražite proizvode...</string>
-    <string name="connecting_with_bluetooth">Connecting with bluetooth!</string>
+    <string name="connecting_with_bluetooth">Povezivanje s bluetooth-om!</string>
     <string name="activity_cart_pay_button">Izvrši plaćanje</string>
     <string name="activity_cart_empty_text">Vaša košarica je prazna, dodajte proizvode!</string>
     <string name="activity_search_plan_empty_text">Vaš plan kupovine je prazan, dodajte proizvode!</string>

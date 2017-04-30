@@ -231,7 +231,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         connectingProgressView.setVisibility(View.GONE);
         connectingTextView.setVisibility(View.GONE);
         TSnackbar snackbar = TSnackbar
-                .make(findViewById(android.R.id.content), "Successfully connected", TSnackbar.LENGTH_LONG);
+                .make(findViewById(android.R.id.content), "Uspješno povezano", TSnackbar.LENGTH_LONG);
         snackbar.setIconRight(R.drawable.ic_bluetooth_connected_white_24dp, 24);
         snackbar.setIconPadding(8);
         View snackbarView = snackbar.getView();
