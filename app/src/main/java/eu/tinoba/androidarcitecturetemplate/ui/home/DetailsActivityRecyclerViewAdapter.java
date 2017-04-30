@@ -38,7 +38,7 @@ public class DetailsActivityRecyclerViewAdapter extends RecyclerView.Adapter<Det
         holder.productName.setText(productsList.get(position).name);
         holder.productCount.setText(String.valueOf(productsList.get(position).quantity));
         holder.productDescription.setText(productsList.get(position).description);
-        //holder.productPrice.setText(String.valueOf(productsList.get(position).getPrice() + " kn"));
+        holder.productPrice.setText(String.valueOf(productsList.get(position).price + " kn"));
         Picasso.with(context)
                .load(productsList.get(position).url)
                .into(holder.productImage);
