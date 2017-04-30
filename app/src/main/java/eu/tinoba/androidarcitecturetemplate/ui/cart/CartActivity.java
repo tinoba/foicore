@@ -23,13 +23,18 @@ import com.androidadvance.topsnackbar.TSnackbar;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.tinoba.androidarcitecturetemplate.R;
+import eu.tinoba.androidarcitecturetemplate.data.api.models.request.ChekoutApiRequest;
 import eu.tinoba.androidarcitecturetemplate.domain.models.Product;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
@@ -286,6 +291,16 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         }
         String roundedString = String.format("Ukupno: %.2f kn", totalPrice);
         totalPayment.setText(roundedString);
+    }
+
+    @OnClick(R.id.activity_cart_pay_button)
+    public void checkout() {
+        final List<ChekoutApiRequest.Products> productsList = new ArrayList<>(cartListAdapter.products.size());
+        for (Product product : cartListAdapter.products) {
+            productsList.add(new ChekoutApiRequest.Products(product.getId(), String.valueOf(product.getCount())));
+        }
+        presenter.checkout(new ChekoutApiRequest("1", "Prodavaonica br 4", "Tomislavova 5. Zagreb", totalPayment.getText().toString(),
+                                                 new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), "C7091480291", productsList));
     }
 
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
