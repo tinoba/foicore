@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="eu.tinoba.androidarcitecturetemplate.ui.discount.DiscountActivity">
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        android:id="@+id/connecting_progress_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        app:cpv_animAutostart="true"
+        app:cpv_indeterminate="true"/>
 
     <LinearLayout
         android:id="@+id/history_item_layout"
@@ -16,7 +25,8 @@
         android:clipToPadding="false"
         android:focusable="true"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/layout_shop"

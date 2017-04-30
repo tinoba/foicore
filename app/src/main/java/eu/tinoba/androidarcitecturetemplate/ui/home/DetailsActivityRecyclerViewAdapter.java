@@ -1,5 +1,6 @@
 package eu.tinoba.androidarcitecturetemplate.ui.home;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,17 +8,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.tinoba.androidarcitecturetemplate.R;
-import eu.tinoba.androidarcitecturetemplate.domain.models.Discount;
+import eu.tinoba.androidarcitecturetemplate.data.api.models.response.HistoryApiResponse;
 
 public class DetailsActivityRecyclerViewAdapter extends RecyclerView.Adapter<DetailsActivityRecyclerViewAdapter.DetailsHistoryPlanViewHolder> {
 
-    List<Discount> discountList = new ArrayList<>();
+    List<HistoryApiResponse.Products> productsList = new ArrayList<>();
+
+    Context context;
+    public DetailsActivityRecyclerViewAdapter(Context context) {
+        this.context = context;
+    }
 
     @Override
     public DetailsActivityRecyclerViewAdapter.DetailsHistoryPlanViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
@@ -27,17 +35,23 @@ public class DetailsActivityRecyclerViewAdapter extends RecyclerView.Adapter<Det
 
     @Override
     public void onBindViewHolder(final DetailsActivityRecyclerViewAdapter.DetailsHistoryPlanViewHolder holder, final int position) {
-       // holder.productName.setText(discountList.get(position).getName());
+        holder.productName.setText(productsList.get(position).name);
+        holder.productCount.setText(String.valueOf(productsList.get(position).quantity));
+        holder.productDescription.setText(productsList.get(position).description);
+        //holder.productPrice.setText(String.valueOf(productsList.get(position).getPrice() + " kn"));
+        Picasso.with(context)
+               .load(productsList.get(position).url)
+               .into(holder.productImage);
     }
 
     @Override
     public int getItemCount() {
-        return discountList.size();
+        return productsList.size();
     }
 
-    public void setData(List<Discount> data) {
-        discountList.clear();
-        discountList.addAll(data);
+    public void setData(List<HistoryApiResponse.Products> data) {
+        productsList.clear();
+        productsList.addAll(data);
         notifyDataSetChanged();
     }
 

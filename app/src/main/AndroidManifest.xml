@@ -76,7 +76,10 @@
             android:parentActivityName=".ui.home.HomeActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.home.DetailsActivity">
+        <activity
+            android:name=".ui.home.DetailsActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
