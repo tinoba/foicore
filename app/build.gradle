@@ -78,6 +78,7 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify:2.2.2'
     compile 'com.google.android.gms:play-services:10.2.1'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.androidadvance:topsnackbar:1.1.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     apt 'com.google.dagger:dagger-compiler:2.5'

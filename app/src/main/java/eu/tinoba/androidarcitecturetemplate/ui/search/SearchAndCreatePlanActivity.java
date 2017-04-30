@@ -12,7 +12,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +34,27 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
     @BindView(R.id.search_bar)
     Toolbar toolbar;
+
     @BindView(R.id.search_product)
     TextInputEditText searchProduct;
+
     @BindView(R.id.search_and_create_plan_activity_main_layout)
     LinearLayout mainLayout;
+
     @BindView(R.id.activity_search_and_plan_recycler_view)
     RecyclerView planRecyclerView;
+
+    @BindView(R.id.activity_search_and_plan_empty_text)
+    TextView emptyText;
+
+    @BindView(R.id.activity_search_and_plan_empty_image)
+    ImageView emptyImage;
+
+    @BindView(R.id.activity_search_total_payment)
+    TextView totalPayment;
+
+    @BindView(R.id.activity_search_and_plan_save_plan)
+    Button savePlan;
 
     CartListAdapter cartListAdapter;
 
@@ -79,9 +97,25 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
                                            .addToBackStack(RESULTS_BACK_STACK)
                                            .commit();
                 planRecyclerView.setVisibility(View.GONE);
+                emptyImage.setVisibility(View.GONE);
+                emptyText.setVisibility(View.GONE);
+                totalPayment.setVisibility(View.GONE);
+                savePlan.setVisibility(View.GONE);
             } else {
                 getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();
-                planRecyclerView.setVisibility(View.VISIBLE);
+//                if (productList.isEmpty()) {
+//                    emptyImage.setVisibility(View.VISIBLE);
+//                    emptyText.setVisibility(View.VISIBLE);
+//                    totalPayment.setVisibility(View.GONE);
+//                    savePlan.setVisibility(View.GONE);
+//                    planRecyclerView.setVisibility(View.GONE);
+//                } else {
+//                    planRecyclerView.setVisibility(View.VISIBLE);
+//                    totalPayment.setVisibility(View.VISIBLE);
+//                    savePlan.setVisibility(View.VISIBLE);
+//                    emptyImage.setVisibility(View.GONE);
+//                    emptyText.setVisibility(View.GONE);
+//                }
             }
         });
     }
@@ -117,6 +151,11 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
     @Override
     public void onProductSelected(final Product prod) {
+        emptyImage.setVisibility(View.GONE);
+        emptyText.setVisibility(View.GONE);
+        savePlan.setVisibility(View.VISIBLE);
+        planRecyclerView.setVisibility(View.VISIBLE);
+        totalPayment.setVisibility(View.VISIBLE);
         searchProduct.setText("");
         searchProduct.clearFocus();
         mainLayout.requestFocus();
@@ -134,6 +173,7 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
             productList.add(new Product(prod.getName(), prod.getCount(), prod.getImageUrl(), prod.getDescription(), prod.getPrice(), "1"));
         }
         cartListAdapter.setData(productList);
+        calculatePrice(productList);
     }
 
     @Override
@@ -142,7 +182,19 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
         if (searchFragment.isVisible()) {
             getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();
-            planRecyclerView.setVisibility(View.VISIBLE);
+            if (productList.isEmpty()) {
+                emptyImage.setVisibility(View.VISIBLE);
+                emptyText.setVisibility(View.VISIBLE);
+                planRecyclerView.setVisibility(View.GONE);
+                totalPayment.setVisibility(View.GONE);
+                savePlan.setVisibility(View.GONE);
+            } else {
+                emptyImage.setVisibility(View.GONE);
+                emptyText.setVisibility(View.GONE);
+                planRecyclerView.setVisibility(View.VISIBLE);
+                totalPayment.setVisibility(View.VISIBLE);
+                savePlan.setVisibility(View.VISIBLE);
+            }
             searchProduct.setText("");
             searchProduct.clearFocus();
             mainLayout.requestFocus();
@@ -163,7 +215,16 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
     @Override
     public void countChanged() {
-        //todo izracunaj cijenu, spremi plan dodati
+        calculatePrice(productList);
+    }
+
+    private void calculatePrice(List<Product> products) {
+        double totalPrice = 0;
+        for (final Product product : products) {
+            totalPrice += product.getCount() * product.getPrice();
+        }
+        String roundedString = String.format("Ukupno: %.2f kn", totalPrice);
+        totalPayment.setText(roundedString);
     }
 
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
@@ -172,6 +233,17 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
                 productList.get(position).decreaseCount();
                 productList.remove(position);
                 cartListAdapter.setData(productList);
+
+                if (productList.isEmpty()) {
+                    planRecyclerView.setVisibility(View.GONE);
+                    totalPayment.setVisibility(View.GONE);
+                    savePlan.setVisibility(View.GONE);
+                    emptyImage.setVisibility(View.VISIBLE);
+                    emptyText.setVisibility(View.VISIBLE);
+                } else {
+                    calculatePrice(productList);
+                }
+
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 break;

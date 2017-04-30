@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidArcitectureTemplate</string>
+    <string name="app_name">Scan \'n buy</string>
     <string name="camera_permission_request">Allow application to access camera?</string>
     <string name="create_new_plan">Kreiraj novi plan</string>
     <string name="check_discount">Pregled akcija</string>
@@ -20,5 +20,7 @@
     <string name="connecting_with_bluetooth">Connecting with bluetooth!</string>
     <string name="activity_cart_pay_button">Izvrši plaćanje</string>
     <string name="activity_cart_empty_text">Vaša košarica je prazna, dodajte proizvode!</string>
+    <string name="activity_search_plan_empty_text">Vaš plan kupovine je prazan, dodajte proizvode!</string>
+    <string name="activity_search_plan_save_plan">Spremi plan</string>
 
 </resources>

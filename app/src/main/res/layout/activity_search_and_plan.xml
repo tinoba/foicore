@@ -38,9 +38,11 @@
             android:id="@+id/activity_search_and_plan_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/activity_search_total_payment"
             android:padding="12dp"
             android:scrollbarStyle="insideOverlay"
-            android:scrollbars="none"/>
+            android:scrollbars="none"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/content"
@@ -48,6 +50,51 @@
             android:layout_height="match_parent"
             tools:background="@color/colorPrimary"
             tools:layout="@layout/fragment_search_results"/>
+
+        <ImageView
+            android:id="@+id/activity_search_and_plan_empty_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/create_plan_blue"/>
+
+        <TextView
+            android:id="@+id/activity_search_and_plan_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_search_and_plan_empty_image"
+            android:layout_centerHorizontal="true"
+            android:text="@string/activity_search_plan_empty_text"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/activity_search_total_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/activity_search_and_plan_save_plan"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="6dp"
+            android:textColor="#494949"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="Ukupno: 100 kn "/>
+
+        <Button
+            android:id="@+id/activity_search_and_plan_save_plan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/activity_search_plan_save_plan"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 </LinearLayout>

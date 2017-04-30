@@ -6,5 +6,6 @@
 
     <color name="white">#ffffff</color>
     <color name="white_opacity">#eeefff</color>
+    <color name="red">#FF0000</color>
 
 </resources>

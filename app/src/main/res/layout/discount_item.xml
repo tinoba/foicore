@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/discount_product_image"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:src="@drawable/ic_starocesko"/>
+
+        <View
+            android:layout_width="125dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/triangle_text_view">
+        </View>
+
+        <TextView
+            android:id="@+id/discount_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:background="@android:color/transparent"
+            android:rotation="45"
+            android:text="-50%"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:id="@+id/discount_layout_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/discount_product_image">
+
+            <TextView
+                android:id="@+id/discount_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#494949"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Staročeško pivo 0,5l "/>
+
+            <LinearLayout
+                android:id="@+id/discount_prices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/discount_product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#494949"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="50,00kn"/>
+
+                <TextView
+                    android:id="@+id/discount_product_price_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#494949"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="30,00kn"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/discount_product_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discount_layout_product_name"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/discount_product_image"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Najbolje pivo hehe"/>
+
+        <TextView
+            android:id="@+id/discount_discount_till_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/discount_product_description"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/discount_product_image"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            tools:text="Akcija vrijedi do 09.05.2017."/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

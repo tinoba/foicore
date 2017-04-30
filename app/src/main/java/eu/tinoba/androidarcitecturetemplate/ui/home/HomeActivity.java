@@ -24,6 +24,7 @@ import eu.tinoba.androidarcitecturetemplate.R;
 import eu.tinoba.androidarcitecturetemplate.domain.models.HistoryPlan;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.discount.DiscountActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.map.ShopMapActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.qr.QRActivity;
 import eu.tinoba.androidarcitecturetemplate.ui.search.SearchAndCreatePlanActivity;
@@ -129,7 +130,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
                 startActivity(new Intent(HomeActivity.this, SearchAndCreatePlanActivity.class));
                 break;
             case R.id.discount:
-                Toast.makeText(this, "OPEN DISCOUNT ACTIVITY", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, DiscountActivity.class));
                 break;
             case R.id.map:
                 startActivity(new Intent(HomeActivity.this, ShopMapActivity.class));
