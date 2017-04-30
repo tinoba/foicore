@@ -131,7 +131,7 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
             }
         }
         if (!productInList) {
-            productList.add(new Product(prod.getName(), prod.getCount(), prod.getImageUrl(), prod.getDescription(), prod.getPrice()));
+            productList.add(new Product(prod.getName(), prod.getCount(), prod.getImageUrl(), prod.getDescription(), prod.getPrice(), "1"));
         }
         cartListAdapter.setData(productList);
     }

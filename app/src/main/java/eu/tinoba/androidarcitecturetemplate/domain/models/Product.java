@@ -7,13 +7,23 @@ public final class Product {
     private String imageUrl;
     private String description;
     private double price;
+    private String id;
 
-    public Product(final String name, final int count, final String imageUrl, final String description, final double price) {
+    public Product(final String name, final int count, final String imageUrl, final String description, final double price, final String id) {
         this.name = name;
         this.count = count;
         this.imageUrl = imageUrl;
         this.description = description;
         this.price = price;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
     }
 
     public double getPrice() {

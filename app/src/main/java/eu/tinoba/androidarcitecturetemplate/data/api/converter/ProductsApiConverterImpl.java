@@ -13,7 +13,7 @@ public final class ProductsApiConverterImpl implements ProductsApiConverter {
         final List<Product> products = new ArrayList<>(response.size());
 
         for (ProductApiResponse apiResponse : response) {
-            products.add(new Product(apiResponse.name.en, 1, apiResponse.media.get(0).url, apiResponse.description.en, apiResponse.mixins.price.originalAmount));
+            products.add(new Product(apiResponse.name.en, 1, apiResponse.media.get(0).url, apiResponse.description.en, apiResponse.mixins.price.originalAmount, "1"));
         }
         return products;
     }
