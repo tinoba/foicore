@@ -18,7 +18,6 @@ public class DiscountActivity extends AppCompatActivity {
     @BindView(R.id.activity_discount_list_of_products)
     RecyclerView recyclerViewDiscounts;
 
-
     DiscountActivityRecyclerViewAdapter recyclerViewAdapter;
 
     List<Discount> discountList = new ArrayList<>();

@@ -1,9 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.tinoba.androidarcitecturetemplate.ui.home.DetailsActivity">
+    android:orientation="vertical"
+    tools:context="eu.tinoba.androidarcitecturetemplate.ui.discount.DiscountActivity">
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/history_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:id="@+id/layout_shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/icon_shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#22000000"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="1"
+                android:text="{fa-shopping-basket}"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="#494949"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Prodavaonica broj 5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_shop_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/icon_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#22000000"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="1"
+                android:text="{fa-map-marker}"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/shop_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:textColor="#494949"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Pavlinska 2 Varaždin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/icon_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#22000000"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="1"
+                android:text="{fa-calendar}"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/date_of_shopping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="#494949"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="25. 4. 2016"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginRight="-12dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"/>
+
+        <LinearLayout
+            android:id="@+id/layout_price_of_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/history_plan_item_iznos_kupovine"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/price_of_purchase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:textColor="#494949"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="100.00 kn"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_details_list_of_products"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="none"/>
+</LinearLayout>
