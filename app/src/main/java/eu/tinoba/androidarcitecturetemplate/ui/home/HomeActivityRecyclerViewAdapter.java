@@ -73,7 +73,7 @@ public class HomeActivityRecyclerViewAdapter extends RecyclerView.Adapter<HomeAc
         protected TextView priceOfPurhcase;
 
         @OnClick(R.id.history_item_layout)
-        public void onItemClicked(View view) {
+        public void onItemClicked() {
             listener.getHistoryId(historyPlanList.get(getAdapterPosition()).getHistoryId());
         }
 

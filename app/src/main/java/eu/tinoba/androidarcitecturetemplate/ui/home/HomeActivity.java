@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,18 +70,6 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
 
         recyclerViewAdapter.setListener(this);
         recyclerViewPlans.setAdapter(recyclerViewAdapter);
-
-        //TODO REMOVE TEST DATA
-/*
-        planInfoList.add(new HistoryPlan("1", "Prodavonica br 2", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("2", "Prodavonica br 21", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("3", "Prodavonica br 4", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("4", "Prodavonica br 15", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("5", "Prodavonica br 56", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("6", "Prodavonica br 41", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("7", "Prodavonica br 56", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("8", "Prodavonica br 142", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));
-        planInfoList.add(new HistoryPlan("9", "Prodavonica br 6", "Pavliska 24 Varaždin", "11.4.2017", "240.45 kn"));*/
 
         recyclerViewAdapter.setData(planInfoList);
 
@@ -148,7 +135,7 @@ public class HomeActivity extends BaseActivity implements HomeActivityRecyclerVi
 
     @Override
     public void getHistoryId(final String id) {
-        Toast.makeText(this, "id kliknutog: " + id, Toast.LENGTH_SHORT).show();
+        startActivity(DetailsActivity.createIntent(this, id));
     }
 
     @Override

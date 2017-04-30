@@ -9,9 +9,10 @@ import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.PATH_CHECKOUT;
+import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.PATH_HISTORIES;
 import static eu.tinoba.androidarcitecturetemplate.data.api.APIConstants.PATH_HISTORY;
 
 public interface CustomAPI {
@@ -19,10 +20,10 @@ public interface CustomAPI {
     @POST(PATH_CHECKOUT)
     Single<ChekoutApiResponse> checkout(@Body ChekoutApiRequest chekoutApiRequest);
 
-    @GET(PATH_HISTORY)
+    @GET(PATH_HISTORIES)
     Single<List<HistoryApiResponse>> getHistories();
 
     @GET(PATH_HISTORY)
-    Single<HistoryApiResponse> getHistory(@Path("checkoutId") String checkoutId);
+    Single<HistoryApiResponse> getHistory(@Query("checkoutId") String checkoutId);
 
 }

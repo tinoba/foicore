@@ -13,6 +13,8 @@ import eu.tinoba.androidarcitecturetemplate.manager.StringManager;
 import eu.tinoba.androidarcitecturetemplate.ui.cart.CartPresenter;
 import eu.tinoba.androidarcitecturetemplate.ui.cart.CartPresenterImpl;
 import eu.tinoba.androidarcitecturetemplate.ui.cart.CartRouter;
+import eu.tinoba.androidarcitecturetemplate.ui.home.DetailsPresenter;
+import eu.tinoba.androidarcitecturetemplate.ui.home.DetailsPresenterImpl;
 import eu.tinoba.androidarcitecturetemplate.ui.home.HomePresenter;
 import eu.tinoba.androidarcitecturetemplate.ui.home.HomePresenterImpl;
 import eu.tinoba.androidarcitecturetemplate.ui.login.LoginPresenter;
@@ -59,5 +61,12 @@ public final class PresenterModule {
     HomePresenter provideHomePresenter(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler, final CustomNetworkService networkService,
                                        @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler) {
         return new HomePresenterImpl(subscribeScheduler, observeScheduler, networkService);
+    }
+
+    @ForActivity
+    @Provides
+    DetailsPresenter provideDetailsPresenter(@Named(SUBSCRIBE_SCHEDULER) final Scheduler subscribeScheduler, final CustomNetworkService networkService,
+                                             @Named(OBSERVE_SCHEDULER) final Scheduler observeScheduler) {
+        return new DetailsPresenterImpl(subscribeScheduler, observeScheduler, networkService);
     }
 }
