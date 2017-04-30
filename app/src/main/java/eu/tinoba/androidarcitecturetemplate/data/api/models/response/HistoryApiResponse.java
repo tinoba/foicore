@@ -52,11 +52,15 @@ public final class HistoryApiResponse {
         @SerializedName("quantity")
         public final String quantity;
 
-        public Products(final String name, final String description, final String url, final String quantity) {
+        @SerializedName("price")
+        public final String price;
+
+        public Products(final String name, final String description, final String url, final String quantity, final String price) {
             this.name = name;
             this.description = description;
             this.url = url;
             this.quantity = quantity;
+            this.price = price;
         }
     }
 }

@@ -10,10 +10,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -79,6 +85,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
 
     private static String deviceName;
     private ConnectThread connectThread;
+    private SpeechRecognizer recognizer;
 
     private CartListAdapter cartListAdapter;
 
@@ -141,6 +148,24 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
             requestPermission();
         }
         presenter.setView(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.plan:
+                startSpeaking();
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -326,5 +351,103 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
                 break;
         }
     };
+
+    private void startSpeaking() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra("android.speech.extra.EXTRA_ADDITIONAL_LANGUAGES", new String[]{"en-US"});
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+                        "combis.hackathon");
+
+        recognizer = SpeechRecognizer
+                .createSpeechRecognizer(this.getApplicationContext());
+        RecognitionListener listener = new RecognitionListener() {
+
+            @Override
+            public void onResults(final Bundle results) {
+                ArrayList<String> voiceResults = results
+                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (voiceResults == null) {
+                    Timber.e("No voice results");
+                } else {
+                    Timber.e("Printing matches: ");
+                    boolean found = false;
+                    for (String match : voiceResults) {
+                        Timber.e(match);
+                        switch (match.toLowerCase()) {
+
+                            case "dodaj opremu za pecanje":
+                                presenter.addProductToCart("65EE25A6");
+                                found = true;
+                                break;
+                            case "dodaj loptice za stolni tenis":
+                                presenter.addProductToCart("6E584939");
+                                found = true;
+                                break;
+                            default:
+                                break;
+                        }
+                        if (found) {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onReadyForSpeech(Bundle params) {
+                Timber.e("Ready for speech");
+            }
+
+            @Override
+            public void onError(int error) {
+                Timber.e("Error listening for speech: " + error);
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+                Timber.e("Speech starting");
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+                // TODO Auto-generated method stub
+
+            }
+        };
+        recognizer.setRecognitionListener(listener);
+        recognizer.startListening(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        recognizer.cancel();
+    }
 }
 
