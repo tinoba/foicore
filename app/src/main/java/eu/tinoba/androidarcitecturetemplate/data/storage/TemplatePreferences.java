@@ -51,4 +51,5 @@ public final class TemplatePreferences implements PreferenceRepository {
     public String getBaseToken() {
         return secureDelegate.getString(KEY_ACCESS_TOKEN, EMPTY_STRING);
     }
+
 }

@@ -22,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.tinoba.androidarcitecturetemplate.R;
 import eu.tinoba.androidarcitecturetemplate.domain.models.Product;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
@@ -58,7 +59,7 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
     CartListAdapter cartListAdapter;
 
-    List<Product> productList = new ArrayList<>();
+    public static List<Product> productList = new ArrayList<>();
 
     int position;
 
@@ -103,21 +104,14 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
                 savePlan.setVisibility(View.GONE);
             } else {
                 getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();
-//                if (productList.isEmpty()) {
-//                    emptyImage.setVisibility(View.VISIBLE);
-//                    emptyText.setVisibility(View.VISIBLE);
-//                    totalPayment.setVisibility(View.GONE);
-//                    savePlan.setVisibility(View.GONE);
-//                    planRecyclerView.setVisibility(View.GONE);
-//                } else {
-//                    planRecyclerView.setVisibility(View.VISIBLE);
-//                    totalPayment.setVisibility(View.VISIBLE);
-//                    savePlan.setVisibility(View.VISIBLE);
-//                    emptyImage.setVisibility(View.GONE);
-//                    emptyText.setVisibility(View.GONE);
-//                }
+
             }
         });
+    }
+
+    @OnClick(R.id.activity_search_and_plan_save_plan)
+    public void savePlan(){
+        finish();
     }
 
     private void setUpText() {
@@ -178,7 +172,6 @@ public class SearchAndCreatePlanActivity extends BaseActivity implements SearchP
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
 
         if (searchFragment.isVisible()) {
             getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();

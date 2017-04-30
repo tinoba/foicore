@@ -44,6 +44,7 @@ import eu.tinoba.androidarcitecturetemplate.data.api.models.request.ChekoutApiRe
 import eu.tinoba.androidarcitecturetemplate.domain.models.Product;
 import eu.tinoba.androidarcitecturetemplate.injection.component.ActivityComponent;
 import eu.tinoba.androidarcitecturetemplate.ui.base.activities.BaseActivity;
+import eu.tinoba.androidarcitecturetemplate.ui.search.SearchAndCreatePlanActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import timber.log.Timber;
@@ -87,6 +88,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     private ConnectThread connectThread;
     private SpeechRecognizer recognizer;
 
+    private boolean shouldCheckout = true;
     private CartListAdapter cartListAdapter;
 
     private LinearLayoutManager linearLayoutManager;
@@ -151,16 +153,16 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_activity_menu, menu);
+        inflater.inflate(R.menu.cart_activity_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.plan:
+            case R.id.mic:
                 startSpeaking();
             default:
                 break;
@@ -304,6 +306,17 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
                .setNegativeButton("No", onClickListener).show();
     }
 
+    DialogInterface.OnClickListener onCheckoutListener = (dialog, which) -> {
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                shouldCheckout = true;
+                break;
+            case DialogInterface.BUTTON_NEGATIVE:
+                shouldCheckout = false;
+                break;
+        }
+    };
+
     @Override
     public void countChanged() {
         calculatePrice(cartListAdapter.products);
@@ -324,6 +337,24 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         for (Product product : cartListAdapter.products) {
             productsList.add(new ChekoutApiRequest.Products(product.getId(), String.valueOf(product.getCount())));
         }
+        if (SearchAndCreatePlanActivity.productList != null) {
+            if (!SearchAndCreatePlanActivity.productList.isEmpty()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                if (SearchAndCreatePlanActivity.productList.size() != cartListAdapter.products.size()) {
+                    builder.setMessage("Are you sure you want to remove this item?").setPositiveButton("Yes", onClickListener)
+                           .setNegativeButton("No", onClickListener).show();
+                    //todo pozovi dijalog
+                } else {
+                    for (int i = 0; i < cartListAdapter.products.size(); i++) {
+                        if (!cartListAdapter.products.get(i).getName().equals(SearchAndCreatePlanActivity.productList.get(i).getName())) {
+                            //todo pozovi dijalog
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         presenter.checkout(new ChekoutApiRequest("1", "Prodavaonica br 4", "Tomislavova 5. Zagreb", totalPayment.getText().toString(),
                                                  new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), "C7091480291", productsList));
     }
@@ -447,7 +478,9 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     @Override
     protected void onPause() {
         super.onPause();
-        recognizer.cancel();
+        if (recognizer != null) {
+            recognizer.cancel();
+        }
     }
 }
 
