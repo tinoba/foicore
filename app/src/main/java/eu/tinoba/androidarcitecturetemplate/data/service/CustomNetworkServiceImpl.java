@@ -4,6 +4,7 @@ import java.util.List;
 
 import eu.tinoba.androidarcitecturetemplate.data.api.models.request.ChekoutApiRequest;
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.ChekoutApiResponse;
+import eu.tinoba.androidarcitecturetemplate.data.api.models.response.HistoriesApiResponse;
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.HistoryApiResponse;
 import io.reactivex.Single;
 
@@ -21,7 +22,7 @@ public final class CustomNetworkServiceImpl implements CustomNetworkService {
     }
 
     @Override
-    public Single<List<HistoryApiResponse>> getHistories() {
+    public Single<List<HistoriesApiResponse>> getHistories() {
         return Single.defer(customAPI::getHistories);
     }
 

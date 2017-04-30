@@ -4,6 +4,7 @@ import java.util.List;
 
 import eu.tinoba.androidarcitecturetemplate.data.api.models.request.ChekoutApiRequest;
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.ChekoutApiResponse;
+import eu.tinoba.androidarcitecturetemplate.data.api.models.response.HistoriesApiResponse;
 import eu.tinoba.androidarcitecturetemplate.data.api.models.response.HistoryApiResponse;
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -21,7 +22,7 @@ public interface CustomAPI {
     Single<ChekoutApiResponse> checkout(@Body ChekoutApiRequest chekoutApiRequest);
 
     @GET(PATH_HISTORIES)
-    Single<List<HistoryApiResponse>> getHistories();
+    Single<List<HistoriesApiResponse>> getHistories();
 
     @GET(PATH_HISTORY)
     Single<HistoryApiResponse> getHistory(@Query("checkoutId") String checkoutId);
