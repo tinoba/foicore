@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "949267870081",
+    "firebase_url": "https://foi-core-1492952256491.firebaseio.com",
+    "project_id": "foi-core-1492952256491",
+    "storage_bucket": "foi-core-1492952256491.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949267870081:android:be2678a5e0d9c55b",
+        "android_client_info": {
+          "package_name": "eu.tinoba.androidarcitecturetemplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949267870081-1gl0mc439oondn7f2ps4vmkd77li646g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKjQd2OAAE2Zf0_kuXNknsttw2MSpSmzM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
