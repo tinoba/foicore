@@ -99,6 +99,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     int readBufferPosition;
     volatile boolean stopWorker;
     private BluetoothAdapter bluetoothAdapter;
+    private List<ChekoutApiRequest.Products> productsList;
 
     private IntentFilter filter;
 
@@ -302,14 +303,15 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
     public void openRemoveDialog(final int position) {
         this.position = position;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to remove this item?").setPositiveButton("Yes", onClickListener)
-               .setNegativeButton("No", onClickListener).show();
+        builder.setMessage("Jeste li sigurni da želite obrisati ovaj artikl?").setPositiveButton("Da", onClickListener)
+               .setNegativeButton("Ne", onClickListener).show();
     }
 
     DialogInterface.OnClickListener onCheckoutListener = (dialog, which) -> {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
-                shouldCheckout = true;
+                presenter.checkout(new ChekoutApiRequest("1", "Prodavaonica br 4", "Tomislavova 5. Zagreb", totalPayment.getText().toString(),
+                                                         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), "C7091480291", productsList));
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 shouldCheckout = false;
@@ -322,7 +324,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
         calculatePrice(cartListAdapter.products);
     }
 
-    private void calculatePrice(List<Product> products) {
+    private void calculatePrice(final List<Product> products) {
         double totalPrice = 0;
         for (final Product product : products) {
             totalPrice += product.getCount() * product.getPrice();
@@ -333,7 +335,7 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
 
     @OnClick(R.id.activity_cart_pay_button)
     public void checkout() {
-        final List<ChekoutApiRequest.Products> productsList = new ArrayList<>(cartListAdapter.products.size());
+        productsList = new ArrayList<>(cartListAdapter.products.size());
         for (Product product : cartListAdapter.products) {
             productsList.add(new ChekoutApiRequest.Products(product.getId(), String.valueOf(product.getCount())));
         }
@@ -341,22 +343,25 @@ public class CartActivity extends BaseActivity implements CartView, EasyPermissi
             if (!SearchAndCreatePlanActivity.productList.isEmpty()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 if (SearchAndCreatePlanActivity.productList.size() != cartListAdapter.products.size()) {
-                    builder.setMessage("Are you sure you want to remove this item?").setPositiveButton("Yes", onClickListener)
-                           .setNegativeButton("No", onClickListener).show();
-                    //todo pozovi dijalog
+                    builder.setMessage("Niste dodali sve proizvode iz planera, da li želite izvršiti plačanje?").setPositiveButton("Da", onCheckoutListener)
+                           .setNegativeButton("Ne", onCheckoutListener).show();
                 } else {
                     for (int i = 0; i < cartListAdapter.products.size(); i++) {
                         if (!cartListAdapter.products.get(i).getName().equals(SearchAndCreatePlanActivity.productList.get(i).getName())) {
-                            //todo pozovi dijalog
+                            builder.setMessage("Niste dodali sve proizvode iz planera, da li želite izvršiti plačanje?").setPositiveButton("Da", onCheckoutListener)
+                                   .setNegativeButton("Ne", onCheckoutListener).show();
                             break;
                         }
                     }
                 }
+            } else {
+                presenter.checkout(new ChekoutApiRequest("1", "Prodavaonica br 4", "Tomislavova 5. Zagreb", totalPayment.getText().toString(),
+                                                         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), "C7091480291", productsList));
             }
+        } else {
+            presenter.checkout(new ChekoutApiRequest("1", "Prodavaonica br 4", "Tomislavova 5. Zagreb", totalPayment.getText().toString(),
+                                                     new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), "C7091480291", productsList));
         }
-
-        presenter.checkout(new ChekoutApiRequest("1", "Prodavaonica br 4", "Tomislavova 5. Zagreb", totalPayment.getText().toString(),
-                                                 new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()), "C7091480291", productsList));
     }
 
     DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
